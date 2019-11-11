@@ -78,12 +78,12 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           cd current
-          mvn sonar:sonar -P all-modules -q "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+          mvn sonar:sonar -q "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
       - name: docker - sonar qube on branch
         if: github.ref != 'refs/heads/master'
         run: |
           cd current
-          mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+          mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       - uses: meeDamian/github-release@1.0
         if: github.ref == 'refs/heads/master'
