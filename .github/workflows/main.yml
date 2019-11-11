@@ -20,6 +20,7 @@ jobs:
       GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
       GITHUB_TOKEN_ADMIN: ${{ secrets.GITHUB_TOKEN_ADMIN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       AEM_NAME: ${{ secrets.AEM_NAME }}
       AEM_KEY: ${{ secrets.AEM_KEY }}
       GPG_SECRET_KEYS: ${{ secrets.GPG_SECRET_KEYS }}
