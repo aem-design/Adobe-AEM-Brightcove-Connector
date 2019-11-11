@@ -77,7 +77,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           cd current
-          mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+          mvn sonar:sonar -P all-modules -q "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
       - name: docker - sonar qube on master
         if: github.ref != 'refs/heads/master'
         run: |
