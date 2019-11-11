@@ -57,7 +57,7 @@ jobs:
           echo CURRENT_VERSION=$CURRENT_VERSION
       - name: set eval variables
         run: |
-          echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}:/build ${DOCKER_IMAGE}
+          echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}/current:/build ${DOCKER_IMAGE}
           $DOCKER_COMMAND java -version
           $DOCKER_COMMAND node -v
           git config --global user.email "${GITHUB_EMAIL}"
@@ -75,10 +75,14 @@ jobs:
 
       - name: docker - sonar qube on master
         if: github.ref == 'refs/heads/master'
-        run: mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+        run: |
+          cd current
+          mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
       - name: docker - sonar qube on master
         if: github.ref != 'refs/heads/master'
-        run: mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
+        run: |
+          cd current
+          mvn sonar:sonar -P all-modules -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
       - uses: meeDamian/github-release@1.0
         if: github.ref == 'refs/heads/master'
