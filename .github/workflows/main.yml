@@ -88,6 +88,11 @@ jobs:
           cd current
           mvn sonar:sonar -q "-Dsonar.branch.name=${GITHUB_REF}" "-Dsonar.branch.target=master" "-Dsonar.host.url=${SONAR_URL}" "-Dsonar.login=${SONAR_TOKEN}" "-Dsonar.organization=${SONAR_ORGANISATION}"
 
+      - name: output path
+        run: |
+          ls -l .
+          ls -l ${GITHUB_WORKSPACE}/current
+    
       - uses: meeDamian/github-release@1.0
         if: github.ref == 'refs/heads/master'
         with:
@@ -98,5 +103,5 @@ jobs:
           allow_override: true
           gzip: false
           files: >
-            **/target/*.zip
+            current/ui.apps/target/*.zip
 
