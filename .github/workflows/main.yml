@@ -63,7 +63,7 @@ jobs:
           $DOCKER_COMMAND node -v
           git config --global user.email "${GITHUB_EMAIL}"
           git config --global user.name "${GITHUB_USERNAME}"
-          export CURRENT_VERSION=$(mvn help:evaluate -q -DforceStdout -Dexpression=project.version)
+          export CURRENT_VERSION=$($DOCKER_COMMAND mvn help:evaluate -q -DforceStdout -Dexpression=project.version -Dmaven.repo.local=./build/.m2/repository)
           echo ::set-env name=CURRENT_VERSION::${CURRENT_VERSION}
           echo CURRENT_VERSION=$CURRENT_VERSION
       - name: setup gpg
