@@ -56,13 +56,17 @@ jobs:
           echo $GIT_RELEASE_NOTES
           echo "====END===="
           echo CURRENT_VERSION=$CURRENT_VERSION
-      - name: set eval variables
+      - name: set docker command
         run: |
           echo ::set-env name=DOCKER_COMMAND::docker run --user $(id -u):$(id -g) -v ${GITHUB_WORKSPACE}/current:/build ${DOCKER_IMAGE}
-          $DOCKER_COMMAND java -version
-          $DOCKER_COMMAND node -v
+      - name: set git config
+        run: |
           git config --global user.email "${GITHUB_EMAIL}"
           git config --global user.name "${GITHUB_USERNAME}"
+      - name: set eval variables
+        run: |
+          $DOCKER_COMMAND java -version
+          $DOCKER_COMMAND node -v
           export CURRENT_VERSION=$($DOCKER_COMMAND mvn help:evaluate -q -DforceStdout -Dexpression=project.version -Dmaven.repo.local=./build/.m2/repository)
           echo ::set-env name=CURRENT_VERSION::${CURRENT_VERSION}
           echo CURRENT_VERSION=$CURRENT_VERSION
