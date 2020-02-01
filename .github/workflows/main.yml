@@ -89,9 +89,9 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${CURRENT_VERSION}
-          name: ${CURRENT_VERSION}
-          body: $GIT_RELEASE_NOTES
+          tag: ${{ env.GITHUB_TAG }}
+          name: ${{ env.GITHUB_TAG }}
+          body: ${{ env.GIT_RELEASE_NOTES }}
           allow_override: true
           gzip: false
           files: >
