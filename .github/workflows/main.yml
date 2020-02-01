@@ -95,5 +95,5 @@ jobs:
           allow_override: true
           gzip: false
           files: >
-            **/target/brightcove_connector*.zip
+            **/target/*.zip
 
